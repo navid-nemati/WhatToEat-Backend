@@ -10,5 +10,6 @@ namespace Authentication_Practice.Services.UserService
         Task<UserProfileDto> GetUserProfileAsync(string username);
         Task<List<UserListItemDto>> GetAllUsersAsync();
         Task<AuthResponseDto> RefreshTokenAsync(string token);
+        Task LogoutAsync(string token);
     }
 }

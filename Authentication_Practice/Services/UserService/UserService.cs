@@ -56,7 +56,7 @@ namespace Authentication_Practice.Services.UserService
             return new AuthResponseDto
             {
                 Username = user.UserName!,
-                Token = accessToken,
+                AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
             };
         }
@@ -67,7 +67,8 @@ namespace Authentication_Practice.Services.UserService
         {
 
             var isEmailExist = await _userManager.FindByEmailAsync(dto.Email);
-            var isUsernameExist = await _userManager.FindByEmailAsync(dto.Username);
+            //var isUsernameExist = await _userManager.FindByEmailAsync(dto.Username);
+            var isUsernameExist = await _userManager.FindByNameAsync(dto.Username);
 
             if (dto.Email == isEmailExist?.Email)
                 throw new InvalidOperationException("کاربری با این ایمیل از قبل وجود دارد");
@@ -83,6 +84,15 @@ namespace Authentication_Practice.Services.UserService
             };
 
             var result = await _userManager.CreateAsync(user, dto.Password);
+
+            if (!result.Succeeded)
+            {
+                throw new AppException(
+                    "ثبت نام ناموفق بود",
+                    StatusCodes.Status400BadRequest,
+                    result.Errors.Select(e => e.Description)
+                );
+            }
 
             //if (!result.Succeeded)
             //    throw new InvalidOperationException("ثبت نام ناموفق بود");
@@ -106,12 +116,14 @@ namespace Authentication_Practice.Services.UserService
 
             user.RefreshTokens.Add(refreshToken);
 
+            await _userManager.UpdateAsync(user);
+
             //------------------------
 
             return new AuthResponseDto
             {
                 Username = user.UserName!,
-                Token = token,
+                AccessToken = token,
                 RefreshToken = refreshToken.Token,
             };
         }
@@ -172,6 +184,8 @@ namespace Authentication_Practice.Services.UserService
         StatusCodes.Status404NotFound
     );
 
+            var roles = await _userManager.GetRolesAsync(user);
+
             return new UserProfileDto
             {
                 Username = user.UserName,
@@ -179,6 +193,7 @@ namespace Authentication_Practice.Services.UserService
                 PhoneNumber = user.PhoneNumber,
                 FullName = user.FullName,
                 Address = user.Address,
+                Roles = roles.ToList()
                 //PostCode = user.PostCode,
                 //UserCity = user.UserCity
             };
@@ -237,11 +252,31 @@ namespace Authentication_Practice.Services.UserService
             return new AuthResponseDto
             {
                 Username = user.UserName!,
-                Token = newAccessToken,
+                AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken.Token
             };
         }
 
+        public async Task LogoutAsync(string token)
+        {
+            var user = await _userManager.Users
+                .Include(x => x.RefreshTokens)
+                .FirstOrDefaultAsync(x =>
+                    x.RefreshTokens.Any(r => r.Token == token));
+
+            if (user == null)
+                return;
+
+            var refresh = user.RefreshTokens
+                .FirstOrDefault(x => x.Token == token);
+
+            if (refresh == null)
+                return;
+
+            refresh.IsRevoked = true;
+
+            await _userManager.UpdateAsync(user);
+        }
     }
 }
 

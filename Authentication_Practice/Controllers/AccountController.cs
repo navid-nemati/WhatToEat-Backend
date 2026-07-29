@@ -80,12 +80,27 @@ namespace Authentication_Practice.Controllers
             return Ok(users);
         }
 
-        [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh(TokenRefreshRequest dto)
-        {
-            var result = await _userService.RefreshTokenAsync(dto.RefreshToken);
+        //[HttpPost("refresh")]
+        //public async Task<IActionResult> Refresh(TokenRefreshRequest dto)
+        //{
+        //    var result = await _userService.RefreshTokenAsync(dto.RefreshToken);
 
-            return Ok(result);
+        //    return Ok(result);
+        //}
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh() // ⭐ حذف dto از ورودی
+        {
+            // خواندن توکن از کوکی
+            if (!Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
+                return Unauthorized();
+
+            var result = await _userService.RefreshTokenAsync(refreshToken);
+
+            // ⭐ ست کردن کوکی‌های جدید (این خط رو نداشتی!)
+            SetAuthCookies(result);
+
+            return Ok(new { username = result.Username });
         }
 
         [Authorize]
@@ -116,9 +131,10 @@ namespace Authentication_Practice.Controllers
                 new CookieOptions
                 {
                     HttpOnly = true,
-                    //Secure = true,
-                    Secure = Request.IsHttps,
-                    SameSite = SameSiteMode.Lax,
+                    //Secure = Request.IsHttps,
+                    //SameSite = SameSiteMode.Lax,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
                     Expires = DateTime.UtcNow.AddMinutes(15)
                 }
                 );

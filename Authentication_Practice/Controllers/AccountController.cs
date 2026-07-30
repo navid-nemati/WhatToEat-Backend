@@ -145,9 +145,10 @@ namespace Authentication_Practice.Controllers
                 new CookieOptions
                 {
                     HttpOnly = true,
-                    //Secure = true,
-                    Secure = Request.IsHttps,
-                    SameSite = SameSiteMode.Strict,
+                    //Secure = Request.IsHttps,
+                    //SameSite = SameSiteMode.Strict,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
                     Expires = DateTime.UtcNow.AddDays(7)
                 }
                 );

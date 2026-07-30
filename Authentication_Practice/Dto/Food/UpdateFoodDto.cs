@@ -11,6 +11,8 @@ namespace Authentication_Practice.Dto.Food
         [MaxLength(50, ErrorMessage = "نام حداکثر می تواند 50 کاراکتر باشد")]
         public string Name { get; set; } = string.Empty;
 
+        public string? Recipe { get; set; }
+
         [Required(ErrorMessage = "لطفا یک دسته بندی انتخاب کنید")]
         public Guid CategoryId { get; set; }
 

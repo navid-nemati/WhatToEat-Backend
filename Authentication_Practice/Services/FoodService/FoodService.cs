@@ -25,6 +25,7 @@ namespace Authentication_Practice.Services.FoodService
                     Name = f.Name,
                     CategoryId = f.CategoryId,
                     CategoryName = f.Category != null ? f.Category.Name : null,
+                    //Recipe = f.Recipe,
                 });
         }
 
@@ -48,13 +49,7 @@ namespace Authentication_Practice.Services.FoodService
                 Name = data.Name,
                 CategoryId = data.CategoryId,
                 CategoryName = data.Category != null ? data.Category.Name : null,
-                //Ingredients = data.IngredientsOfFood?.Select(f => new IngredientsOfFoodDto
-                //{
-                //    Id = f.Id,
-                //    IngredientId = f.IngredientId,
-                //    IngredientName = f.Ingredient != null ? f.Ingredient.Name : null,
-                //    Value = f.Value,
-                //}).ToList(),
+                Recipe = data.Recipe,
             };
         }
 
@@ -70,6 +65,7 @@ namespace Authentication_Practice.Services.FoodService
             {
                 Name = dto.Name,
                 CategoryId = dto.CategoryId,
+                Recipe = dto.Recipe,
             };
 
             await _repository.AddEntity(food);
@@ -81,6 +77,7 @@ namespace Authentication_Practice.Services.FoodService
                 Name = food.Name,
                 CategoryId = food.CategoryId,
                 CategoryName = food.Category != null ? food.Category.Name : null,
+                Recipe = food.Recipe,
             };
         }
 
@@ -91,6 +88,7 @@ namespace Authentication_Practice.Services.FoodService
 
             data.Name = dto.Name;
             data.CategoryId = dto.CategoryId;
+            data.Recipe = dto.Recipe;
             //data.Ingredients = dto.Ingredients;
 
             _repository.EditEntity(data);

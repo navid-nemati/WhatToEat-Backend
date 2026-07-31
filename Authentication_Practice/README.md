@@ -6,7 +6,7 @@ RESTful API for the What To Eat application.
 
 # ? Features
 
-## Authentication
+## ?? Authentication
 
 - JWT Authentication
 - Refresh Token
@@ -16,7 +16,7 @@ RESTful API for the What To Eat application.
 
 ---
 
-## Foods
+## ?? Foods
 
 - CRUD Operations
 - Category Assignment
@@ -62,7 +62,7 @@ RESTful API for the What To Eat application.
 
 ---
 
-# Future Plans
+# ?? Planned Features
 
 - Pagination
 - Search
@@ -74,7 +74,7 @@ RESTful API for the What To Eat application.
 
 ---
 
-# Learning Goals
+# ?? Learning Goals
 
 - ASP.NET Core
 - Entity Framework Core

@@ -42,7 +42,7 @@ namespace Authentication_Practice.Services.TokenService
             {
                 Subject = new ClaimsIdentity(claims),
                 //Expires = DateTime.Now.AddSeconds(20),
-                Expires = DateTime.Now.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = creds,
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"]

@@ -114,8 +114,16 @@ namespace Authentication_Practice.Controllers
                 await _userService.LogoutAsync(refreshToken);
             }
 
-            Response.Cookies.Delete("refreshToken");
-            Response.Cookies.Delete("accessToken");
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Path = "/"
+            };
+
+            Response.Cookies.Delete("accessToken", cookieOptions);
+            Response.Cookies.Delete("refreshToken", cookieOptions);
 
             return Ok(new
             {

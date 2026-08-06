@@ -12,6 +12,6 @@ namespace Authentication_Practice.Dto.Food
         public Guid CategoryId { get; set; }
         public string? CategoryName { get; set; } = string.Empty;
         public string? Recipe { get; set; }
-        //public ICollection<IngredientsOfFoodDto>? Ingredients { get; set; } = new List<IngredientsOfFoodDto>();
+        public string? ImagePath { get; set; }
     }
 }

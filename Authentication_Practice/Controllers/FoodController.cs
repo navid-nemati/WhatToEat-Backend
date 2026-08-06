@@ -24,7 +24,7 @@ namespace Authentication_Practice.Controllers
             return Ok(data);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             var data = await _service.GetByIdAsync(id);
@@ -33,31 +33,52 @@ namespace Authentication_Practice.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateFoodDto dto)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateAsync(
+            [FromForm] CreateFoodDto dto,
+            CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
 
-            var created = await _service.CreateAsync(dto);
+            var created = await _service.CreateAsync(
+                dto,
+                cancellationToken);
 
             return Ok(created);
+
+            //return CreatedAtAction(
+            //    nameof(GetByIdAsync),
+            //    new { id = created.Id },
+            //    created);
         }
 
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> UpdateAsync(Guid Id, UpdateFoodDto dto)
+        [HttpPut("{Id:guid}")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateAsync(
+            Guid Id,
+            [FromForm] UpdateFoodDto dto,
+            CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
 
-            await _service.UpdateAsync(Id ,dto);
+            await _service.UpdateAsync(Id,
+                dto,
+                cancellationToken);
 
             return NoContent();
         }
 
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteAsync(Guid Id)
+        [HttpDelete("{Id:guid}")]
+        public async Task<IActionResult> DeleteAsync(
+            Guid Id,
+            CancellationToken cancellationToken)
         {
-            await _service.DeleteAsync(Id);
+            await _service.DeleteAsync(
+                Id,
+                cancellationToken);
+
             return NoContent();
         }
     }

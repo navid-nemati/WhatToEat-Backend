@@ -15,6 +15,6 @@ namespace Authentication_Practice.Dto.Food
         [Required]
         public Guid CategoryId { get; set; }
 
-        //public ICollection<IngredientDto>? Ingredients { get; set; } = new List<IngredientDto>();
+        public IFormFile? Image { get; set; }
     }
 }

@@ -16,6 +16,11 @@ namespace Authentication_Practice.Dto.Food
         [Required(ErrorMessage = "لطفا یک دسته بندی انتخاب کنید")]
         public Guid CategoryId { get; set; }
 
-        //public ICollection<IngredientDto>? Ingredients { get; set; } = new List<IngredientDto>();
+        public IFormFile? Image { get; set; }
+        public bool RemoveImage { get; set; }
+
+//        تصویر جدید فرستاده شود → تصویر قبلی جایگزین شود
+//تصویر جدید ارسال نشود → تصویر قبلی باقی بماند
+//RemoveImage = true → تصویر قبلی حذف شود
     }
 }

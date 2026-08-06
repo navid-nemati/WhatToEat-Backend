@@ -3,6 +3,7 @@ using Authentication_Practice.Middleware;
 using Authentication_Practice.Models.Account;
 using Authentication_Practice.Repositories;
 using Authentication_Practice.Services.CategoryService;
+using Authentication_Practice.Services.FileStorage;
 using Authentication_Practice.Services.FoodService;
 using Authentication_Practice.Services.IngredientService;
 using Authentication_Practice.Services.IngredientsOfFoodService;
@@ -65,6 +66,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IIngredientsOfFoodService, IngredientsOfFoodService>();
+builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -166,6 +168,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseCors("AllowReactApp");
 

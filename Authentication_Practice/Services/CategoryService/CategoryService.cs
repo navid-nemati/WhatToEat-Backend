@@ -8,10 +8,10 @@ namespace Authentication_Practice.Services.CategoryService
     public class CategoryService : ICategoryService
     {
         private readonly IGenericRepository<Category> _repository;
-        private readonly IGenericRepository<Food> _FoodRepo;
+        private readonly IGenericRepository<FoodItem> _FoodRepo;
 
         public CategoryService(IGenericRepository<Category> repository,
-            IGenericRepository<Food> FoodRepo)
+            IGenericRepository<FoodItem> FoodRepo)
         {
             _repository = repository;
             _FoodRepo = FoodRepo;

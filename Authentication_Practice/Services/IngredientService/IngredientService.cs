@@ -39,10 +39,9 @@ namespace Authentication_Practice.Services.IngredientService
 
             var ingredientDtos = ingredients.Select(i => new IngredientDto
             {
-                Id = i.Id, // فرض می‌کنیم Ingredient یک پراپرتی Id دارد
-                Name = i.Name // فرض می‌کنیم Ingredient یک پراپرتی Name دارد
-                              // سایر پراپرتی‌های IngredientDto را اینجا مپ کنید
-            }).ToList(); // .ToList() را اینجا فراخوانی کنید تا IEnumerable<IngredientDto> را بدست آورید
+                Id = i.Id,
+                Name = i.Name
+            }).ToList();
 
             return ingredientDtos;
         }

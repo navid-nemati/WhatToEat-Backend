@@ -3,6 +3,6 @@
     public class Category : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
-        public ICollection<Food> Foods { get; set; } = new List<Food>();
+        public ICollection<FoodItem> Foods { get; set; } = new List<FoodItem>();
     }
 }

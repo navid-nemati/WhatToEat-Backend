@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Authentication_Practice.Models.Food
+﻿namespace Authentication_Practice.Models.Food
 {
-    public class Food : BaseEntity
+    public class FoodItem : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
         public Guid CategoryId { get; set; }

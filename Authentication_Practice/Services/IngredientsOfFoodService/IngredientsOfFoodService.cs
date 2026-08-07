@@ -42,7 +42,7 @@ namespace Authentication_Practice.Services.IngredientsOfFoodService
                 {
                     Id = i.Id,
                     IngredientId = i.IngredientId,
-                    IngredientName = i.Ingredient.Name, // اضافه شد
+                    IngredientName = i.Ingredient.Name,
                     Value = i.Value,
                 })
                 .ToListAsync();

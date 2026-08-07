@@ -33,6 +33,20 @@ namespace Authentication_Practice.Data
                 .HasForeignKey(i => i.IngredientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<ShoppingListItem>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.ShoppingListItems)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            //اگر کاربر حذف شد، لیست خریدش هم حذف شود.
+
+            builder.Entity<ShoppingListItem>()
+                .HasOne(s => s.Ingredient)
+                .WithMany(i => i.ShoppingListItems)
+                .HasForeignKey(s => s.IngredientId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            //وقتی ماده اولیه در لیست خرید بقیه وجود دارد نمی توان آن را حذف کرد
+
             //builder.Entity<Category>()
             //    .HasMany(f => f.Foods)
             //    .WithOne(c => c.Category)
@@ -40,9 +54,10 @@ namespace Authentication_Practice.Data
         }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Food> Foods { get; set; }
+        public DbSet<FoodItem> Foods { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientsOfFood> IngredientsOfFoods { get; set; }
+        public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
     }
 }

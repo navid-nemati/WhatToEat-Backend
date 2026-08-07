@@ -4,6 +4,7 @@ using Authentication_Practice.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication_Practice.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260806173228_add ShoppinList")]
+    partial class addShoppinList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,9 +140,6 @@ namespace Authentication_Practice.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FoodId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("IngredientId")
                         .HasColumnType("uniqueidentifier");
 
@@ -157,8 +157,6 @@ namespace Authentication_Practice.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FoodId");
 
                     b.HasIndex("IngredientId");
 
@@ -188,7 +186,7 @@ namespace Authentication_Practice.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Authentication_Practice.Models.Food.FoodItem", b =>
+            modelBuilder.Entity("Authentication_Practice.Models.Food.Food", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -418,12 +416,6 @@ namespace Authentication_Practice.Migrations
 
             modelBuilder.Entity("Authentication_Practice.Models.Account.ShoppingListItem", b =>
                 {
-                    b.HasOne("Authentication_Practice.Models.Food.FoodItem", "Food")
-                        .WithMany()
-                        .HasForeignKey("FoodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Authentication_Practice.Models.Food.Ingredient", "Ingredient")
                         .WithMany("ShoppingListItems")
                         .HasForeignKey("IngredientId")
@@ -436,14 +428,12 @@ namespace Authentication_Practice.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Food");
-
                     b.Navigation("Ingredient");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Authentication_Practice.Models.Food.FoodItem", b =>
+            modelBuilder.Entity("Authentication_Practice.Models.Food.Food", b =>
                 {
                     b.HasOne("Authentication_Practice.Models.Food.Category", "Category")
                         .WithMany("Foods")
@@ -456,7 +446,7 @@ namespace Authentication_Practice.Migrations
 
             modelBuilder.Entity("Authentication_Practice.Models.Food.IngredientsOfFood", b =>
                 {
-                    b.HasOne("Authentication_Practice.Models.Food.FoodItem", "Food")
+                    b.HasOne("Authentication_Practice.Models.Food.Food", "Food")
                         .WithMany("IngredientsOfFood")
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -536,7 +526,7 @@ namespace Authentication_Practice.Migrations
                     b.Navigation("Foods");
                 });
 
-            modelBuilder.Entity("Authentication_Practice.Models.Food.FoodItem", b =>
+            modelBuilder.Entity("Authentication_Practice.Models.Food.Food", b =>
                 {
                     b.Navigation("IngredientsOfFood");
                 });

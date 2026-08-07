@@ -7,6 +7,7 @@ using Authentication_Practice.Services.FileStorage;
 using Authentication_Practice.Services.FoodService;
 using Authentication_Practice.Services.IngredientService;
 using Authentication_Practice.Services.IngredientsOfFoodService;
+using Authentication_Practice.Services.ShoppingListService;
 using Authentication_Practice.Services.TokenService;
 using Authentication_Practice.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -67,6 +68,7 @@ builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IIngredientsOfFoodService, IngredientsOfFoodService>();
 builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
+builder.Services.AddScoped<IShoppingListService, ShoppingListService>();
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>

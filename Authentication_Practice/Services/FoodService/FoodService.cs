@@ -10,13 +10,13 @@ namespace Authentication_Practice.Services.FoodService
 {
     public class FoodService : IFoodService
     {
-        private readonly IGenericRepository<Food> _repository;
+        private readonly IGenericRepository<FoodItem> _repository;
         private readonly IFileStorageService _fileStorage;
 
         private const string FoodImagesFolder = "uploads/foods";
 
         public FoodService(
-            IGenericRepository<Food> repository,
+            IGenericRepository<FoodItem> repository,
             IFileStorageService fileStorage)
         {
             _repository = repository;
@@ -108,7 +108,7 @@ namespace Authentication_Practice.Services.FoodService
 
                 }
 
-                var food = new Food
+                var food = new FoodItem
                 {
                     Name = dto.Name,
                     CategoryId = dto.CategoryId,

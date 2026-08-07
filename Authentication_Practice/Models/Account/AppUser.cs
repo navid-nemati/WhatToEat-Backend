@@ -10,5 +10,8 @@ namespace Authentication_Practice.Models.Account
         //public string? PhoneNumber { get; set; } identity خودش پراپرتی شماره موبایل داره نمیشه اینجا دوباره تعریف کرد مگه اینکه override بزاری
 
         public List<RefreshToken> RefreshTokens { get; set; } = new();//new
+
+        public ICollection<ShoppingListItem> ShoppingListItems { get; set; }
+            = new List<ShoppingListItem>();
     }
 }

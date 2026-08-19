@@ -1,5 +1,6 @@
 ﻿using Authentication_Practice.Dto.Category;
 using Authentication_Practice.Services.CategoryService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,7 @@ namespace Authentication_Practice.Controllers
             return result is null ? NotFound() : Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateCategoryDto dto)
         {
@@ -49,6 +51,7 @@ namespace Authentication_Practice.Controllers
             return Ok(created);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(Guid id, UpdateCategoryDto category)
         {
@@ -59,6 +62,7 @@ namespace Authentication_Practice.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteAsync(Guid Id)
         {

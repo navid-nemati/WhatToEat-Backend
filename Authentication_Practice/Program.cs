@@ -60,8 +60,12 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof (GenericRepository<>));
 builder.Services.AddScoped<IUserService, UserService>();

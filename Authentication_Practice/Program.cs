@@ -188,27 +188,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-//{
-//    "username": "Navid1",
-//  "email": "navidnemati888@gmail.com",
-//  "password": "123456"
-//}
-
-//Username: admin
-//Password: Admin123!
-
-//Username: admin-test
-//Password: Admin123
-
-//{
-//  "username": "admin-test",
-//  "password": "Admin123"
-//}
-
-//Username: omid
-//Password: 1234567
-
-//Username: Navid123
-//Email: test123 @gmail.com
-//Password: Navid123456

@@ -47,8 +47,8 @@ namespace Authentication_Practice.Repositories
 
         public async Task AddEntity(TEntity entity)
         {
-            entity.CreateDate = DateTime.Now;
-            entity.LastUpdateDate = DateTime.Now;
+            entity.CreateDate = DateTime.UtcNow;
+            entity.LastUpdateDate = DateTime.UtcNow;
             await _dbSet.AddAsync(entity);
         }
 
@@ -56,14 +56,14 @@ namespace Authentication_Practice.Repositories
         {
             foreach(var entity in entities)
             {
-                entity.CreateDate = DateTime.Now;
-                entity.LastUpdateDate = DateTime.Now;
+                entity.CreateDate = DateTime.UtcNow;
+                entity.LastUpdateDate = DateTime.UtcNow;
                 await _dbSet.AddAsync(entity);
             }
         }
         public void EditEntity(TEntity entity)
         {
-            entity.LastUpdateDate = DateTime.Now;
+            entity.LastUpdateDate = DateTime.UtcNow;
             _dbSet.Update(entity);
         }
 
